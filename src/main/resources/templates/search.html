@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xml:th="https://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header" />
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav th:replace="fragments/nav :: nav" ></nav>
+<div id='searchBox' class="text-center w-100 p-3" style="height: 200px">
+  <button style="height: 170px; border-radius: 65px; font-size: 40px" class="w-25 btn btn-primary" onclick="search()">Search</button>
+</div>
+<div class="container">
+  <div class="row justify-content-around">
+    <div id="tag_bar" class="col-3 row border border-primary">
+      <div class="input-group mb-4">
+        <span class="input-group-text" id="basic-addon3">태그 검색</span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+      </div>
+
+      <div class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group" id="tag_table">
+      </div>
+
+      <div class="col-2"></div>
+
+      <div class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group" id="selected_tag_table">
+      </div>
+
+    </div>
+
+    <div class="col-6 px-6">
+      <div id="game_table">
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" th:src="@{/js/writeTag.js}"></script>
+  <script type="text/javascript" th:src="@{/js/search.js}"></script>
+  <script type="text/javascript" th:src="@{/js/writeSearchResult.js}"></script>
+</body>
+</html>
