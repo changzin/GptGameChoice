@@ -1,14 +1,7 @@
-
-
 async function search(){
     LoadingWithMask();
     var data = new Object();
-    var tagList = [];
     var temp = JSON.parse(sessionStorage.getItem("tagList"));
-    for(idx in temp){
-        console.log(temp[idx].tagName);
-        tagList.push(temp[idx].tagName);
-    };
     var similarGames = JSON.parse(sessionStorage.getItem("similarGames"));
     var excludeGames = JSON.parse(sessionStorage.getItem("excludeGames"));
 

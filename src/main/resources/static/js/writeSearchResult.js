@@ -1,5 +1,3 @@
-writeSearchResult();
-
 function writeSearchResult(){
     var gameDtoList = JSON.parse(sessionStorage.getItem("gameDtoList"));
     gameDtoList.forEach(gameDto => {

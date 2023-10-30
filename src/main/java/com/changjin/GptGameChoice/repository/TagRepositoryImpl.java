@@ -22,7 +22,7 @@ public class TagRepositoryImpl implements TagRepository{
         List<TagDto> tagDtoList = new ArrayList<>();
 
         for (Tag tag : tagList) {
-            tagDtoList.add(new TagDto(tag.getTagId(), tag.getTagName(), false));
+            tagDtoList.add(new TagDto(tag.getTagId(), tag.getTagName()));
         }
 
         return tagDtoList;

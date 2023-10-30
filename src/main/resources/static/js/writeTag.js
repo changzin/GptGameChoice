@@ -1,12 +1,67 @@
-writeTag();
+var searchMode = false;
+sortTag();
+function writeSortTag(){
+    searchMode = false;
+    sortTag();
+    writeTag();
+}
+
+function sortTag(){
+    if (searchMode){
+        tagDtoList = tagDtoList.sort(function(a, b) {
+                return b.lcs - a.lcs;
+            });
+    }
+    else{
+        tagDtoList = tagDtoList.sort(function(a, b) {
+                return a.tagId - b.tagId;
+            });
+    }
+    return;
+}
+
+function searchTag(){
+    searchMode = true;
+    const searchInput = document.querySelector("#search-input");
+    tagDtoList.forEach(tagDto => { tagDto.lcs = lcs(tagDto.tagName, searchInput.value)});
+
+    if (searchInput.value===''){
+        searchMode = false;
+    }
+    sortTag();
+    for(i = 0; i < tagDtoList.length; i++){
+        tagDtoList[i].lcs = tagDtoList.length-i;
+    }
+    writeTag();
+}
+
+function lcs(string1, string2){
+    const s1 = string1.length;
+    const s2 = string2.length;
+    const dp = Array.from(new Array(s1 + 1), () => new Array(s2 + 1));
+    for (let i = 0; i <= s1; i++) {
+      dp[i][0] = 0;
+    }
+    for (let j = 0; j <= s2; j++) {
+      dp[0][j] = 0;
+    }
+
+    for (let i = 1; i <= s1; i++) {
+      for (let j = 1; j <= s2; j++) {
+        if (string1.charAt(i - 1) === string2.charAt(j - 1)) {
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+        } else {
+          dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+    }
+
+    return dp[s1][s2];
+}
 
 function selectTagButton(selectedTagId){
-    var tagDtoList = JSON.parse(sessionStorage.getItem("tagDtoList"));
-    var tagList = JSON.parse(sessionStorage.getItem("tagList"));
     const selectedTag = tagDtoList.find(function(item) {    return item.tagId === selectedTagId    });
     const idx = tagDtoList.indexOf(selectedTag);
-
-    console.log(selectedTagId);
 
     tagList.push(selectedTag);
     tagDtoList.splice(idx, 1);
@@ -14,55 +69,36 @@ function selectTagButton(selectedTagId){
     sessionStorage.setItem("tagList", JSON.stringify(tagList));
     sessionStorage.setItem("tagDtoList", JSON.stringify(tagDtoList));
 
-    document.querySelector("#selected_tag_table").innerHTML = '';
-    document.querySelector("#tag_table").innerHTML = '';
     writeTag();
 }
 
 function unselectTagButton(selectedTagId){
-    var tagDtoList = JSON.parse(sessionStorage.getItem("tagDtoList"));
-    var tagList = JSON.parse(sessionStorage.getItem("tagList"));
     const selectedTag = tagList.find(function(item) {    return item.tagId === selectedTagId    });
     const idx = tagList.indexOf(selectedTag);
-
-    console.log(selectedTagId);
 
     tagDtoList.push(selectedTag);
     tagList.splice(idx, 1);
 
-    tagDtoList.sort((a, b) => {
-        if (a.tagId < b.tagId) return -1;
-        if (a.tagId > b.tagId) return 1;
-
-        return 0;
-    });
+    sortTag();
     sessionStorage.setItem("tagList", JSON.stringify(tagList));
     sessionStorage.setItem("tagDtoList", JSON.stringify(tagDtoList));
-
-    document.querySelector("#selected_tag_table").innerHTML = '';1
-    document.querySelector("#tag_table").innerHTML = '';
     writeTag();
 }
 
 function writeTag(){
-    var tagDtoList = JSON.parse(sessionStorage.getItem("tagDtoList"));
-    var tagList = JSON.parse(sessionStorage.getItem("tagList"));
-
+    document.querySelector("#selected_tag_table").innerHTML = '';
+    document.querySelector("#tag_table").innerHTML = '';
     tagDtoList.forEach(tagDto => {
-        if (tagDto.check==false){
-            document.querySelector("#tag_table").innerHTML += `
-                        <div class="p-2 tag_box">
-                            <button id="${tagDto.tagId}" onclick="selectTagButton(${tagDto.tagId})" class="btn btn-primary tag_button">${tagDto.tagName}</button>
-                        </div>`;
-        }
+        document.querySelector("#tag_table").innerHTML += `
+                    <div class="p-2 tag_box">
+                        <button id="${tagDto.tagId}" onclick="selectTagButton(${tagDto.tagId})" class="btn btn-primary tag_button">${tagDto.tagName}</button>
+                    </div>`;
     })
 
     tagList.forEach(tagDto => {
-        if (tagDto.check==false){
-            document.querySelector("#selected_tag_table").innerHTML += `
-                        <div style="height: 40px" class="p-2 tag_box">
-                            <button id="${tagDto.tagId}" onclick="unselectTagButton(${tagDto.tagId})" style="font-size: 15px" class="btn btn-primary tag_button">${tagDto.tagName}</button>
-                        </div>`;
-        }
+        document.querySelector("#selected_tag_table").innerHTML += `
+                    <div class="p-2 tag_box">
+                        <button id="${tagDto.tagId}" onclick="unselectTagButton(${tagDto.tagId})" class="btn btn-primary tag_button">${tagDto.tagName}</button>
+                    </div>`;
     })
 }

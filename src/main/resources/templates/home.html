@@ -13,8 +13,13 @@
         <div class="row">
 
             <div class="input-group mb-4">
-                <span class="input-group-text" id="basic-addon3">태그 검색</span>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="writeSortTag()">재정렬</button>
+                </div>
+                <input id="search-input" type="text" class="form-control" placeholder="검색할 태그를 입력하세요" aria-label="태그 검색창" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="searchTag()">검색</button>
+                </div>
             </div>
 
             <div class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group" id="tag_table">
@@ -27,9 +32,16 @@
 
         </div>
     </div>
-    <script type="text/javascript" th:inline="javascript">var tagDtoList = [[${tagDtoList}]] </script>
+    <script type="text/javascript" th:inline="javascript">
+        var tagDtoList = [[${tagDtoList}]];
+        var tagList = [];
+    </script>
     <script type="text/javascript" th:src="@{/js/data.js}"></script>
-    <script type="text/javascript" th:src="@{/js/writeTag.js}"></script>
+    <script type="text/javascript" th:src="@{/js/writeTag.js?ver=1}"></script>
     <script type="text/javascript" th:src="@{/js/search.js}"></script>
+    <script>
+        init();
+        writeTag();
+    </script>
 </body>
 </html>
