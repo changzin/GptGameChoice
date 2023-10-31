@@ -41,8 +41,9 @@ public class HomeController {
     // SearchDto로 게임 검색, GameDtoList 반환
     @PostMapping("/search/find")
     public ResponseEntity searchWithObject(@RequestBody SearchDto searchDto){
+        System.out.println("searchDto = " + searchDto);
         List<GameDto> gameDtoList = chatGptService.getGameChoice(searchDto);
-
+        System.out.println("gameDtoList = " + gameDtoList);
 //        List<GameDto> gameDtoList = new ArrayList<>();
 //        List<String> tags = new ArrayList<>();
 //        tags.add("fun");

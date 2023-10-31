@@ -2,6 +2,7 @@ package com.changjin.GptGameChoice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 public class SearchDto {
-    private List<String> tagList;
+    private List<TagDto> tagList;
     private List<String> similarGames;
     private List<String> excludedGames;
 
@@ -21,8 +22,8 @@ public class SearchDto {
         excludedGames = new ArrayList<>();
     }
 
-    public void AddTag(String tag){
-        this.tagList.add(tag);
+    public void AddTag(TagDto tagDto){
+        this.tagList.add(tagDto);
     }
 
     public void addSimilarGame(String GameName){

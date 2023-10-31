@@ -3,6 +3,7 @@ package com.changjin.GptGameChoice.repository;
 import com.changjin.GptGameChoice.config.Config;
 import com.changjin.GptGameChoice.dto.GameDto;
 import com.changjin.GptGameChoice.dto.SearchDto;
+import com.changjin.GptGameChoice.dto.TagDto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
@@ -31,7 +32,11 @@ public class ChatGptRepositoryImpl implements ChatGptRepository{
     }
 
     private String makePrompt(SearchDto searchDto){
-        List<String> tags = searchDto.getTagList();
+        List<TagDto> tagDtoList = searchDto.getTagList();
+        List<String> tags = new ArrayList<>();
+        for(TagDto tagDto : tagDtoList){
+            tags.add(tagDto.getTagName());
+        }
         List<String> similarGames = searchDto.getSimilarGames();
         List<String> excludeGames = searchDto.getExcludedGames();
         String tagPrompt;
@@ -43,13 +48,13 @@ public class ChatGptRepositoryImpl implements ChatGptRepository{
         else{
             tagPrompt = tags.toString();
         }
-        if(similarGames.isEmpty()){
+        if(similarGames == null || similarGames.isEmpty()){
             similarGamesPrompt = "none";
         }
         else{
             similarGamesPrompt = similarGames.toString();
         }
-        if(excludeGames.isEmpty()){
+        if(excludeGames == null || excludeGames.isEmpty()){
             excludeGamesPrompt = "none";
         }
         else{

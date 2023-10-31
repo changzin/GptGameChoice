@@ -1,15 +1,16 @@
 async function search(){
     LoadingWithMask();
     var data = new Object();
-    var temp = JSON.parse(sessionStorage.getItem("tagList"));
-    var similarGames = JSON.parse(sessionStorage.getItem("similarGames"));
-    var excludeGames = JSON.parse(sessionStorage.getItem("excludeGames"));
-
-    data.tagList = tagList;
-    data.similarGames = similarGames;
-    data.excludeGames = excludeGames;
+    var temp1 = JSON.parse(sessionStorage.getItem("tagList"));
+    var temp2 = JSON.parse(sessionStorage.getItem("similarGames"));
+    var temp3 = JSON.parse(sessionStorage.getItem("excludeGames"));
+    data.tagList = temp1;
+    data.similarGames = temp2;
+    data.excludeGames = temp3;
 
     const json = JSON.stringify(data)
+
+    console.log(data);
 
     const response = await fetch("http://localhost:8080/search/find", {
         method: "POST",

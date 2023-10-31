@@ -2,12 +2,13 @@
 <html xml:th="https://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header" />
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/basic.css?ver=1">
+    <link rel="stylesheet" href="/css/home.css?ver=1">
 </head>
 <body>
     <nav th:replace="fragments/nav :: nav" ></nav>
     <div id='searchBox' class="text-center w-100 p-3" style="height: 200px">
-        <button style="height: 170px; border-radius: 65px; font-size: 40px" class="w-25 btn btn-primary" onclick="search()">Search</button>
+        <button id='searchButton' class="w-25 btn btn-primary" onclick="search()">Search</button>
     </div>
     <div id="tag_bar" class="container d-grid gap-2 col-6">
         <div class="row">
@@ -22,12 +23,12 @@
                 </div>
             </div>
 
-            <div class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group" id="tag_table">
+            <div id="tag_table" class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group">
             </div>
 
             <div class="col-2"></div>
 
-            <div class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group" id="selected_tag_table">
+            <div id="selected_tag_table" class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group">
             </div>
 
         </div>
@@ -35,13 +36,18 @@
     <script type="text/javascript" th:inline="javascript">
         var tagDtoList = [[${tagDtoList}]];
         var tagList = [];
+        var similarGames = [];
+        var excludeGames = [];
     </script>
     <script type="text/javascript" th:src="@{/js/data.js}"></script>
-    <script type="text/javascript" th:src="@{/js/writeTag.js?ver=1}"></script>
+    <script type="text/javascript" th:src="@{/js/writeTag.js?ver=2}"></script>
     <script type="text/javascript" th:src="@{/js/search.js}"></script>
     <script>
+        console.log("1");
         init();
+        console.log("2");
         writeTag();
+        console.log("3");
     </script>
 </body>
 </html>

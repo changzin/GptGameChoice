@@ -1,5 +1,4 @@
 var searchMode = false;
-sortTag();
 function writeSortTag(){
     searchMode = false;
     sortTag();
@@ -90,14 +89,14 @@ function writeTag(){
     document.querySelector("#tag_table").innerHTML = '';
     tagDtoList.forEach(tagDto => {
         document.querySelector("#tag_table").innerHTML += `
-                    <div class="p-2 tag_box">
+                    <div class="p-1 tag_box">
                         <button id="${tagDto.tagId}" onclick="selectTagButton(${tagDto.tagId})" class="btn btn-primary tag_button">${tagDto.tagName}</button>
                     </div>`;
     })
 
     tagList.forEach(tagDto => {
         document.querySelector("#selected_tag_table").innerHTML += `
-                    <div class="p-2 tag_box">
+                    <div class="p-1 tag_box">
                         <button id="${tagDto.tagId}" onclick="unselectTagButton(${tagDto.tagId})" class="btn btn-primary tag_button">${tagDto.tagName}</button>
                     </div>`;
     })

@@ -1,0 +1,12 @@
+#searchButton {
+    background-color: #00b4d8;
+    height: 170px;
+    border-radius: 65px;
+    font-size: 40px;
+    font: bold sans-serif;
+}
+
+.tag_button {
+    background-color: #0077b6;
+    color: white;
+}
