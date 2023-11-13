@@ -1,6 +1,6 @@
 package com.changjin.GptGameChoice.repository;
 
-import com.changjin.GptGameChoice.config.Config;
+import com.changjin.GptGameChoice.config.ChatGptConfig;
 import com.changjin.GptGameChoice.dto.GameDto;
 import com.changjin.GptGameChoice.dto.SearchDto;
 import com.changjin.GptGameChoice.dto.TagDto;
@@ -20,15 +20,12 @@ import java.util.List;
 @Repository
 public class ChatGptRepositoryImpl implements ChatGptRepository{
     @Override
-    public List<GameDto> SearchGame(SearchDto searchDto) {
+    public GameDto SearchGame(SearchDto searchDto) {
         String prompt;
-        List<GameDto> gameDtoList;
 
         prompt = makePrompt(searchDto);
 
-        gameDtoList = chatGPT(prompt);
-
-        return gameDtoList;
+        return chatGPT(prompt);
     }
 
     private String makePrompt(SearchDto searchDto){
@@ -63,10 +60,10 @@ public class ChatGptRepositoryImpl implements ChatGptRepository{
         return "Tag: " + tagPrompt + ", Similar game: " + similarGamesPrompt + ", Excluded game: " + excludeGamesPrompt;
     }
 
-    private List<GameDto> chatGPT(String prompt) {
+    private GameDto chatGPT(String prompt) {
         String url = "https://api.openai.com/v1/chat/completions";
-        String apiKey = Config.apiKey;
-        String basicPrompt = Config.basicPrompt;
+        String apiKey = ChatGptConfig.apiKey;
+        String basicPrompt = ChatGptConfig.basicPrompt;
         String model = "gpt-3.5-turbo";
 
         try {
@@ -106,7 +103,10 @@ public class ChatGptRepositoryImpl implements ChatGptRepository{
         }
     }
 
-    private List<GameDto> extractMessageFromJSONResponse(String response) {
+    private GameDto extractMessageFromJSONResponse(String response) {
+        //
+        System.out.println("ChatGpt's response = " + response);
+        GameDto gameDto;
         int start = response.indexOf("content")+ 11;
         int end = response.indexOf("finish_reason", start)-11;
         String gameName;
@@ -114,7 +114,7 @@ public class ChatGptRepositoryImpl implements ChatGptRepository{
         int gamePrice;
         List<String> gameTag;
         String gameDescription;
-
+        String steamLink;
         String responseStr = response.substring(start, end);
         responseStr = responseStr.replace("\\n", "");
         responseStr = responseStr.replace("\\", "");
@@ -124,27 +124,24 @@ public class ChatGptRepositoryImpl implements ChatGptRepository{
 
         try{
             JSONObject jsonObject = new JSONObject(responseStr);
-            JSONArray jsonArray = jsonObject.getJSONArray("Games");
             JSONArray tagArray;
 
-            for(int i = 0; i < 5; i++){
-                jsonObject= jsonArray.getJSONObject(i);
-                gameName = jsonObject.getString("Name");
-                gameReview = jsonObject.getString("All Reviews");
-                gamePrice = (int)jsonObject.get("Price");
-                gameDescription = jsonObject.getString("Reason For Selection");
-                tagArray = jsonObject.getJSONArray("Tags");
-                gameTag = new ArrayList<>();
-                for(int j = 0; j < tagArray.length(); j++){
-                    gameTag.add(tagArray.getString(j));
-                }
-                gameDtoList.add(new GameDto(gameName, gameReview, gamePrice, gameTag, gameDescription));
+            gameName = jsonObject.getString("Name");
+            gameReview = jsonObject.getString("All Reviews");
+            gamePrice = (int)jsonObject.get("Price");
+            gameDescription = jsonObject.getString("Reason For Selection");
+            tagArray = jsonObject.getJSONArray("Tags");
+            steamLink = jsonObject.getString("Steam link");
+            gameTag = new ArrayList<>();
+            for(int j = 0; j < tagArray.length(); j++){
+                gameTag.add(tagArray.getString(j));
             }
+            return new GameDto(gameName, gameReview, gamePrice, gameTag, gameDescription, steamLink);
         }
         catch (Exception e){
             System.out.println("ChatGptRepositoryImpl :"+e.getMessage());
         }
-        return gameDtoList;
+        return null;
     }
 
 

@@ -38,3 +38,4 @@ out/
 
 ### API KEY ###
 src/main/resources/chatGPTAPiKey
+src/main/resources/firebaseApiKey.json

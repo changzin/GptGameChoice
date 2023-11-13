@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import java.io.*;
 
 @Configuration
-public class Config {
+public class ChatGptConfig {
     static public String apiKey;
     static public String basicPrompt;
     static {

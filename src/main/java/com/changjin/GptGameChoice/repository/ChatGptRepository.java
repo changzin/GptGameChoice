@@ -6,5 +6,5 @@ import com.changjin.GptGameChoice.dto.SearchDto;
 import java.util.List;
 
 public interface ChatGptRepository {
-    List<GameDto> SearchGame(SearchDto searchDto);
+    GameDto SearchGame(SearchDto searchDto);
 }

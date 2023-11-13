@@ -22,7 +22,7 @@ async function search(){
     })
     .then((response) => response.json());
 
-    sessionStorage.setItem("gameDtoList", JSON.stringify(response));
+    sessionStorage.setItem("gameDto", JSON.stringify(response));
 
     closeLoadingWithMask();
     window.location.href = 'http://localhost:8080/search';

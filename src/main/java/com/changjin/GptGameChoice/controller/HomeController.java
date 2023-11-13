@@ -42,22 +42,22 @@ public class HomeController {
     @PostMapping("/search/find")
     public ResponseEntity searchWithObject(@RequestBody SearchDto searchDto){
 //        System.out.println("searchDto = " + searchDto);
-//        List<GameDto> gameDtoList = chatGptService.getGameChoice(searchDto);
-//        System.out.println("gameDtoList = " + gameDtoList);
-        List<GameDto> gameDtoList = new ArrayList<>();
-        List<String> tags = new ArrayList<>();
-        tags.add("fun");
-        GameDto gameDto1 = new GameDto("name1", "Good1", 1000, tags, "funny1");
-        GameDto gameDto2 = new GameDto("name2", "Good2", 2000, tags, "funny2");
-        GameDto gameDto3 = new GameDto("name3", "Good3", 3000, tags, "funny3");
-        GameDto gameDto4 = new GameDto("name4", "Good4", 4000, tags, "funny4");
-        GameDto gameDto5 = new GameDto("name5", "Good5", 5000, tags, "funny5");
-        gameDtoList.add(gameDto1);
-        gameDtoList.add(gameDto2);
-        gameDtoList.add(gameDto3);
-        gameDtoList.add(gameDto4);
-        gameDtoList.add(gameDto5);
+        GameDto gameDto = chatGptService.getGameChoice(searchDto);
+        System.out.println("gameDtoList = " + gameDto);
+//        List<String> tags = new ArrayList<>();
+//        List<GameDto> gameDtoList = new ArrayList<>();
+//        tags.add("fun");
+//        GameDto gameDto1 = new GameDto("name1", "Good1", 1000, tags, "funny1");
+//        GameDto gameDto2 = new GameDto("name2", "Good2", 2000, tags, "funny2");
+//        GameDto gameDto3 = new GameDto("name3", "Good3", 3000, tags, "funny3");
+//        GameDto gameDto4 = new GameDto("name4", "Good4", 4000, tags, "funny4");
+//        GameDto gameDto5 = new GameDto("name5", "Good5", 5000, tags, "funny5");
+//        gameDtoList.add(gameDto1);
+//        gameDtoList.add(gameDto2);
+//        gameDtoList.add(gameDto3);
+//        gameDtoList.add(gameDto4);
+//        gameDtoList.add(gameDto5);
 
-        return ResponseEntity.status(300).body(gameDtoList);
+        return ResponseEntity.status(300).body(gameDto);
     }
 }

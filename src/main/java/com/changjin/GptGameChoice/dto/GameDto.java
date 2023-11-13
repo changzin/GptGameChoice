@@ -15,4 +15,5 @@ public class GameDto {
     private int gamePrice;
     private List<String> gameTag;
     private String gameDescription;
+    private String steamLink;
 }
