@@ -3,7 +3,7 @@
 }
 
 #tag_bar {
-    border-radius: 25px;
+    border-radius: 20px;
     background-color: #caf0f8;
 }
 
@@ -11,10 +11,7 @@
     font-size: 13px;
 }
 
-.game-table-row{
-}
-
 #excludeGamesBox {
-    background-color: #caf0f8;
+    background-color: #ECF4D6;
 }
 

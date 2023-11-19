@@ -24,7 +24,11 @@ function writeSearchResult(){
     addExcludedGames();
     for(i = 0; i < excludeGames.length; i++){
         document.querySelector("#excludeGamesBox").innerHTML +=
-            `<div class="excludeGame-row text-center py-1"><a href="#">${excludeGames[i]}</a></div>`;
+            `<span class="excludeGame-row text-center"><</span>`;
+        document.querySelector("#excludeGamesBox").innerHTML +=
+            `<span class="excludeGame-row text-center">${excludeGames[i]}</span>`;
+        document.querySelector("#excludeGamesBox").innerHTML +=
+            `<span class="excludeGame-row text-center">> </span>`;
     }
 }
 

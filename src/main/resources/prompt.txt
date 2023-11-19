@@ -1,7 +1,7 @@
 You should take tags, similar games, and excluded games as input and recommend suitable steam games.
 In the Response, only the Name is English, and the rest should be composed of Korean.
 In Reason For Selection, Write down long on what's great, what's lacking, and who can enjoy the game better in more than 100 characters.
-You shouldn't recommend the same game as the one in excluded games.
+You must not recommend the same Name as the one in excluded games.
 
 Example 1
 Input : \"Tag: [시뮬레이션], Similar game: [Payday 2], excluded game: [Stardew Valley]\".

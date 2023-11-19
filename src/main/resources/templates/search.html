@@ -3,46 +3,49 @@
 <html xml:th="https://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header" />
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/search.css?ver=4">
-  <link rel="stylesheet" href="/css/basic.css?ver=2">
+  <link rel="stylesheet" href="/css/search.css?ver=8">
+  <link rel="stylesheet" href="/css/basic.css?ver=81">
 </head>
 <body>
   <nav th:replace="fragments/nav :: nav" ></nav>
-  <div id='searchBox' class="text-center w-100 p-3" style="height: 200px">
-    <button id='searchButton' class="w-25 btn" onclick="search()">Search</button>
-  </div>
-  <div class="d-flex justify-content-between">
-    <div id="tag_bar" class="col-3 py-3 row">
-      <div class="input-group mb-4">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" onclick="writeSortTag()">재정렬</button>
-        </div>
-        <input id="search-input" type="text" class="form-control" placeholder="검색할 태그를 입력하세요" aria-label="태그 검색창" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" onclick="searchTag()">검색</button>
-        </div>
-      </div>
-      <div id="tag_table" class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group"></div>
-      <div class="col-2"></div>
-      <div id="selected_tag_table" class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group"></div>
-    </div>
-    <div class="col-7 p-5">
-      <div class="text-center">ChatGpt가 생각한 결과가 나왔습니다!</div>
-      <div id="game_table"></div>
-    </div>
-    <div id="excludeGamesBox" class="col-2 px-3 m-3">
-      <div class="text-center mb-3">검색된 게임 목록</div>
-    </div>
-  </div>
-  <script type="text/javascript" th:src="@{/js/writeTag.js?ver=4}"></script>
-  <script type="text/javascript" th:src="@{/js/search.js?ver=4}"></script>
-  <script type="text/javascript" th:src="@{/js/writeSearchResult.js?ver=4}"></script>
+  <script type="text/javascript" th:src="@{/js/writeTag.js?ver=5}"></script>
+  <script type="text/javascript" th:src="@{/js/search.js?ver=5}"></script>
+  <script type="text/javascript" th:src="@{/js/writeSearchResult.js?ver=6}"></script>
   <script>
     var tagDtoList = JSON.parse(sessionStorage.getItem("tagDtoList"));
     var tagList = JSON.parse(sessionStorage.getItem("tagList"));
     var similarGames = JSON.parse(sessionStorage.getItem("similarGames"));
     var excludeGames = JSON.parse(sessionStorage.getItem("excludeGames"));
     var gameDto = JSON.parse(sessionStorage.getItem("gameDto"));
+  </script>
+
+  <div id='searchBox' class="text-center w-100 py-3 my-3" style="height: 200px">
+    <button id='searchButton' class="w-25 btn btn-primary" onclick="search()">Search</button>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div id="tag_bar" class="col-3 p-3 row">
+      <div class="input-group mb-4">
+        <div class="input-group-append">
+          <button class="tag_search btn btn-info" type="button" onclick="writeSortTag()">재정렬</button>
+        </div>
+        <input id="search-input" type="text" class="form-control" placeholder="검색할 태그를 입력하세요" aria-label="태그 검색창" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="tag_search btn btn-success" type="button" onclick="searchTag()">검색</button>
+        </div>
+      </div>
+      <div id="tag_table" class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group"></div>
+      <div class="col-2"></div>
+      <div id="selected_tag_table" class="align-items-center col-5 d-flex flex-column" role="group" aria-label="Vertical button group"></div>
+    </div>
+    <div class="col-9 p-5">
+      <div id="excludeGamesBox" class="p-3">
+        <div class="text-center mb-3">검색된 게임 목록</div>
+      </div>
+      <div id="game_table"></div>
+    </div>
+
+  </div>
+  <script>
     writeSortTag();
     writeSearchResult();
   </script>
